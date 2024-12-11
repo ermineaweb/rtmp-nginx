@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Cameras Board</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      .camera {
+        background: #d8d8d8;
+        flex: 0 0 100%;
+        max-width: 410px;
+        /* flex-basis: 32%; */
+        /* width: calc(100vw / 4); */
+        /* height: 300px; */
+        aspect-ratio: 1640 / 1232;
+      }
+
+      #container {
+        background: #000000d3;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        justify-content: center;
+        overflow-x: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <select>
+      <option>HLS</option>
+      <option>WebRTC</option>
+    </select>
+    <div id="container"></div>
+
+    <script type="text/javascript">
+      const camerasHLS = ["http://192.168.1.17:8888/cam"];
+      const camerasWebRTC = ["http://192.168.1.17:8889/cam"];
+
+      function prepareFrame(camera) {
+        const iframe = document.createElement("iframe");
+        iframe.setAttribute("src", camera);
+        iframe.setAttribute("frameborder", 0);
+        iframe.setAttribute("class", "camera");
+        document.getElementById("container").appendChild(iframe);
+      }
+
+      function updateCameras(cameras) {
+        for (const camera of cameras) {
+          prepareFrame(camera);
+        }
+      }
+
+      updateCameras(camerasHLS);
+    </script>
+  </body>
+</html>
